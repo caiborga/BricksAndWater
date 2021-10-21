@@ -1,4 +1,12 @@
-function bricksAndWater(bricksArray) {
+function bricksAndWater() {
+
+    var bricksArray = document.getElementById("numbers").value;
+    bricksArray = bricksArray.split(',');
+    for(let number = 0; number < bricksArray.length; number++){
+        if(isNaN(bricksArray[number])){
+            document.getElementById("warning").innerHTML = "Please enter numbers seperated by a comma!";
+        }
+    }
 
     var arrayLaenge = bricksArray.length;
     var ende = arrayLaenge - 1;
@@ -7,9 +15,8 @@ function bricksAndWater(bricksArray) {
     var slicedArray = [];
     var workingArray = bricksArray;
 
-
-    //Berechnet waterbricks einer "Array-Scheibe"
-    function berechne(){
+    //Calculates waterbricks of one "array-slice"
+    function calculate(){
        
         var summe = 0;
         var summieren = slicedArray[0]; //Setzt "linke Rille"
@@ -29,7 +36,7 @@ function bricksAndWater(bricksArray) {
         }
     }
 
-    //Zerschneidet workingArray in "Array-Scheibe"; 0 Stellen bleiben 0, andere Elemente werden 1;
+    //Slices workingArray in "array-slice"; 0 equals 0, other elements equal 1;
     function slice(){
         for (var i=0; i<arrayLaenge; i++){
             if (workingArray[i] == 0){
@@ -40,8 +47,8 @@ function bricksAndWater(bricksArray) {
        }
     }
 
-    //Subtrahiert 1 von jedem Element ungleich 0
-    function subtrahieren(){
+    //Subtracts 1 of every element != 0
+    function subtract(){
         for (var i = 0; i <= ende; i++){
             if (workingArray[i] != 0){
                 workingArray[i] = workingArray[i] - 1;
@@ -51,9 +58,9 @@ function bricksAndWater(bricksArray) {
 
     for (var i=0; i<max; i++){
         slice();
-        berechne();
-        subtrahieren();
+        calculate();
+        subtract();
     }
-
-    return ergebnis;
+    document.getElementById("result").innerHTML = ergebnis;
+    console.log(ergebnis);
 }
